@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { reducer } from './reducer'
-import { createInitialState } from './state'
+import { createInitialState, normalizeState } from './state'
 
 const setup = { locationId: 'suburb', stateId: 'texas', careerId: 'small-lot' }
 const started = () => reducer(createInitialState(), { type: 'START_GAME', setup })
@@ -50,9 +50,36 @@ describe('dealership game rules', () => {
   })
 
   it('advances the day and records daily overhead', () => {
-    const state = reducer(started(), { type: 'NEXT_DAY' })
+    const initial = started()
+    const state = reducer(initial, { type: 'NEXT_DAY' })
     expect(state.game.day).toBe(2)
     expect(state.game.cash).toBe(49200)
+    expect(state.game.customers).not.toBe(initial.game.customers)
     expect(state.game.activity[0]).toMatch(/Day 2/)
+  })
+
+  it('refreshes and skips market listings', () => {
+    const initial = started()
+    const refreshed = reducer(initial, { type: 'REFRESH_MARKET' })
+    expect(refreshed.game.market).toHaveLength(3)
+    expect(refreshed.game.market[0].id).not.toBe(initial.game.market[0].id)
+    const skipped = reducer(refreshed, { type: 'SKIP_MARKET' })
+    expect(skipped.game.market).toHaveLength(2)
+  })
+
+  it('sells a listed vehicle directly at its list price', () => {
+    let state = reducer(started(), { type: 'BUY_VEHICLE', vehicleId: 'civic-2017' })
+    state = reducer(state, { type: 'SET_PRICE', vehicleId: 'civic-2017', price: 12000 })
+    state = reducer(state, { type: 'SELL_VEHICLE', vehicleId: 'civic-2017' })
+    expect(state.game.inventory).toHaveLength(0)
+    expect(state.game.revenue).toBe(12000)
+    expect(state.game.cash).toBe(53800)
+  })
+
+  it('normalizes older saves with no market or customer fields', () => {
+    const state = started()
+    const legacy = normalizeState({ ...state, game: { ...state.game, market: undefined, customers: undefined } })
+    expect(legacy.game.market).toHaveLength(3)
+    expect(legacy.game.customers.length).toBeGreaterThan(0)
   })
 })

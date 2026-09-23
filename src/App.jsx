@@ -30,8 +30,8 @@ export default function App() {
     <Dashboard game={game} onReset={resetGame} onNextDay={() => dispatch({ type: 'NEXT_DAY' })} />
     <main className="game-main">
       <div className="content-grid">
-        <InventoryPanel game={game} onBuy={(vehicleId) => dispatch({ type: 'BUY_VEHICLE', vehicleId })} onSelect={(vehicleId) => dispatch({ type: 'INSPECT_VEHICLE', vehicleId })} />
-        <VehicleDetails key={selectedVehicle?.id || 'empty'} vehicle={selectedVehicle} onInspect={(vehicleId) => dispatch({ type: 'INSPECT_VEHICLE', vehicleId })} onPrice={(vehicleId, price) => { dispatch({ type: 'INSPECT_VEHICLE', vehicleId }); dispatch({ type: 'SET_PRICE', vehicleId, price }) }} onOffer={(vehicleId) => dispatch({ type: 'GENERATE_OFFER', vehicleId })} />
+        <InventoryPanel game={game} onBuy={(vehicleId) => dispatch({ type: 'BUY_VEHICLE', vehicleId })} onSelect={(vehicleId) => dispatch({ type: 'INSPECT_VEHICLE', vehicleId })} onRefresh={() => dispatch({ type: 'REFRESH_MARKET' })} onSkip={() => dispatch({ type: 'SKIP_MARKET' })} />
+        <VehicleDetails key={selectedVehicle?.id || 'empty'} vehicle={selectedVehicle} onInspect={(vehicleId) => dispatch({ type: 'INSPECT_VEHICLE', vehicleId })} onPrice={(vehicleId, price) => { dispatch({ type: 'INSPECT_VEHICLE', vehicleId }); dispatch({ type: 'SET_PRICE', vehicleId, price }) }} onOffer={(vehicleId) => dispatch({ type: 'GENERATE_OFFER', vehicleId })} onSell={(vehicleId) => dispatch({ type: 'SELL_VEHICLE', vehicleId })} />
         <CustomerOffer offer={game.offer} onAccept={() => dispatch({ type: 'ACCEPT_OFFER' })} onCounter={(amount) => dispatch({ type: 'COUNTER_OFFER', amount })} onReject={() => dispatch({ type: 'REJECT_OFFER' })} />
       </div>
       <aside className="activity-log"><div className="section-heading"><div><p className="eyebrow">The ledger</p><h2>Recent activity</h2></div></div><ol>{game.activity.map((entry, index) => <li key={`${entry}-${index}`}>{entry}</li>)}</ol></aside>

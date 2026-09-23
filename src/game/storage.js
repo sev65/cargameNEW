@@ -1,4 +1,4 @@
-import { SAVE_VERSION } from './state'
+import { normalizeState, SAVE_VERSION } from './state'
 
 const STORAGE_KEY = 'lotline-motors-save'
 
@@ -7,7 +7,7 @@ export const loadState = (storage = globalThis.localStorage) => {
     const raw = storage?.getItem(STORAGE_KEY)
     if (!raw) return null
     const parsed = JSON.parse(raw)
-    return parsed?.version === SAVE_VERSION && parsed.game ? parsed : null
+    return parsed?.version === SAVE_VERSION && parsed.game ? normalizeState(parsed) : null
   } catch {
     return null
   }

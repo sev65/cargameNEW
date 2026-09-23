@@ -1,928 +1,517 @@
-# Car Dealership Simulator
-## Complete Implementation Roadmap
+# Car Dealership Simulator - Build Order
+
+## Goal
+
+Start as a car flipper or dealer and grow into a nationwide dealership empire through used lots, franchise dealerships, acquisitions, and auto groups.
 
 ---
 
-# Project Vision
+# V0.1 - Foundation
 
-Create a React-based browser game where players can begin as a teenage car flipper and eventually build a nationwide automotive empire consisting of:
+## 1. Create Project
 
-- Used car lots
-- Luxury dealerships
-- Franchise dealerships
-- Service centers
-- Auto groups
-- Regional headquarters
+- Create React + Vite app
+- Install React Router
+- Install Zustand
+- Install Tailwind
 
-The game should focus on business growth, strategic decision making, customer interactions, vehicle acquisition, and dealership management.
+Done When:
+- App boots
+- Routing works
 
 ---
 
-# Tech Stack
+## 2. Create Core Layout
 
-## Frontend
+Pages:
 
-- React
-- Vite
-- React Router
-- Tailwind CSS
-- Zustand (or Context API)
+- Dashboard
+- Market
+- Inventory
+- Customers
+- Finance
+- Settings
 
-## Data Storage
+Done When:
+- Navigation works
 
-Version 1:
+---
+
+## 3. Create Global Game Store
+
+Game State:
+
+- cash
+- day
+- inventory
+- reputation
+- location
+- employees
+
+Done When:
+- State persists during session
+
+---
+
+## 4. Create Save System
+
+Functions:
+
+- saveGame()
+- loadGame()
+
+Storage:
+
 - LocalStorage
 
-Future Versions:
-- Supabase
-- Firebase
-
-## Hosting
-
-- Netlify
+Done When:
+- Refreshing page keeps progress
 
 ---
 
-# Development Phases
+# V0.2 - Core Car System
+
+## 5. Create Vehicle Database
+
+Fields:
+
+- make
+- model
+- year
+- baseValue
+- type
+
+Done When:
+- 100+ vehicles exist
 
 ---
 
-# Phase 0 - Project Foundation
+## 6. Create Vehicle Generator
 
-## Goal
+Generate:
 
-Create the project structure and navigation system.
+- mileage
+- condition
+- value
 
-## Tasks
-
-### Setup Project
-
-```bash
-npm create vite@latest car-dealer-sim -- --template react
-cd car-dealer-sim
-npm install
-```
-
-### Install Dependencies
-
-```bash
-npm install react-router-dom
-npm install zustand
-npm install lucide-react
-```
-
-### Create Folder Structure
-
-```text
-src/
-
-components/
-pages/
-hooks/
-context/
-data/
-utils/
-assets/
-```
-
-### Core Pages
-
-```text
-Dashboard
-Inventory
-Market
-Customers
-Finance
-Settings
-```
-
-### Deliverable
-
-A working React application with navigation.
+Done When:
+- Random vehicles spawn
 
 ---
 
-# Phase 1 - Core Buy and Sell Loop
-
-## Goal
-
-Create the first playable version.
-
----
-
-## Vehicle Generator
-
-Generate random vehicles.
-
-Vehicle Properties:
-
-```js
-{
-  id,
-  make,
-  model,
-  year,
-  mileage,
-  condition,
-  purchasePrice,
-  marketValue
-}
-```
-
-### Create
-
-```text
-cars.json
-```
-
-containing:
-
-- Economy Cars
-- SUVs
-- Trucks
-- Sports Cars
-
----
-
-## Vehicle Market
-
-Player can:
-
-- Browse available cars
-- Buy vehicles
-- Refresh listings
-
----
-
-## Inventory System
-
-Display:
-
-- Vehicle Name
-- Mileage
-- Condition
-- Value
+## 7. Create Vehicle Market
 
 Actions:
 
-- Sell
-- Inspect
+- buy
+- skip
+- refresh
 
----
-
-## Money System
-
-Track:
-
-```text
-Cash
-Revenue
-Profit
-Expenses
-```
-
-Starting amounts depend on career start.
-
----
-
-## Deliverable
-
-Player can:
-
-- Buy vehicles
-- Sell vehicles
-- Generate profit
-
----
-
-# Phase 2 - Save System
-
-## Goal
-
-Allow progress to persist.
-
----
-
-## LocalStorage
-
-Create:
-
-```js
-saveGame()
-loadGame()
-```
-
-Save:
-
-```text
-Cash
-Inventory
-Day
-Location
-Career
-Reputation
-```
-
----
-
-## Deliverable
-
-Game state loads automatically.
-
----
-
-# Phase 3 - Time System
-
-## Goal
-
-Create progression.
-
----
-
-### Add Day Cycle
-
-Example:
-
-```text
-Day 1
-Day 2
-Day 3
-```
-
-Button:
-
-```text
-Next Day
-```
-
----
-
-### Daily Actions
-
-- New inventory
-- Customer generation
-- Daily expenses
-- Market updates
-
----
-
-## Deliverable
-
-Time advances and game world changes.
-
----
-
-# Phase 4 - Career Start Selection
-
-## Goal
-
-Allow multiple starting paths.
-
----
-
-## Teen Flipper
-
-Starting Assets:
-
-```text
-Cash: $5,000
-Property: Driveway
-Employees: None
-```
-
----
-
-## Small Used Car Lot
-
-Starting Assets:
-
-```text
-Cash: $50,000
-Inventory Slots: 10
-Employees: 1
-```
-
----
-
-## Established Dealer
-
-Starting Assets:
-
-```text
-Cash: $250,000
-Vehicles: 30
-Service Center: Yes
-```
-
----
-
-## Luxury Dealer
-
-Starting Assets:
-
-```text
-Luxury Inventory
-Premium Showroom
-```
-
----
-
-## Franchise Dealer
-
-Options:
-
-- Ford
-- Chevrolet
-- Toyota
-- Honda
-- Nissan
-
----
-
-## Auto Group CEO
-
-Starting Assets:
-
-```text
-Multiple Dealerships
-Large Inventory
-```
-
----
-
-## Sandbox
-
-Starting Assets:
-
-```text
-$100,000,000
-Everything Unlocked
-```
-
----
-
-## Deliverable
-
-Player chooses starting career.
-
----
-
-# Phase 5 - Start Location Selection
-
-## Goal
-
-Create replayability.
-
----
-
-## Small Rural Town
-
-Pros:
-
-- Cheap land
-- Cheap labor
-
-Cons:
-
-- Low traffic
-
----
-
-## Growing Suburb
+Done When:
+- Player can purchase cars
 
-Balanced economy.
-
----
-
-## Large City
-
-Pros:
-
-- Huge customer base
-
-Cons:
-
-- High costs
-
----
-
-## Wealthy Area
-
-Pros:
-
-- Luxury demand
-
-Cons:
-
-- High expectations
-
----
-
-## Rust Belt Town
-
-Pros:
-
-- Cheap inventory
-
-Cons:
-
-- Lower customer spending
-
----
-
-## State Modifiers
-
-### Texas
-
-- Truck Demand +30%
-- SUV Demand +20%
-
-### California
-
-- EV Demand +50%
-- Hybrid Demand +40%
-
-### Florida
-
-- Luxury Demand +20%
-- Convertible Demand +30%
-
-### Michigan
-
-- Ford Bonus
-- GM Bonus
-
----
-
-## Deliverable
-
-Location affects economy and demand.
-
----
-
-# Phase 6 - Customer System
-
-## Goal
-
-Create buyers.
-
----
-
-## Customer Generator
-
-Customer Properties:
-
-```js
-{
-  budget,
-  preferredType,
-  favoriteBrands,
-  patience,
-  negotiationSkill
-}
-```
-
----
-
-## Customer Traffic
-
-Visitors generated daily.
-
-Example:
-
-```text
-3-10 customers per day
-```
-
----
-
-## Deliverable
-
-Customers evaluate inventory.
-
----
-
-# Phase 7 - Negotiation System
-
-## Goal
-
-Add decision making.
-
 ---
 
-Customer submits offer.
+## 8. Create Inventory System
 
-Options:
+Display:
 
-```text
-Accept
-Counter Offer
-Reject
-```
+- vehicle info
+- value
+- condition
 
----
+Actions:
 
-Factors:
+- inspect
+- sell
 
-- Vehicle value
-- Customer patience
-- Reputation
-- Sales skill
+Done When:
+- Inventory updates correctly
 
 ---
-
-## Deliverable
-
-Negotiation affects sales outcomes.
 
----
+## 9. Create Sell Logic
 
-# Phase 8 - Reputation System
+Rules:
 
-## Goal
+- remove vehicle
+- add cash
 
-Reward good business practices.
+Done When:
+- Profits are calculated
 
 ---
 
-Reputation Scale:
+# V0.3 - Time & Customers
 
-```text
-1-100
-```
-
----
+## 10. Create Day System
 
-Increase Through:
+Actions:
 
-- Fair pricing
-- Good reviews
-- Fast service
+- next day
 
----
+Effects:
 
-Decrease Through:
+- market refresh
+- customer refresh
 
-- Overpricing
-- Poor service
+Done When:
+- Day counter advances
 
 ---
 
-Benefits:
+## 11. Create Customer Generator
 
-- Better manufacturers
-- More traffic
-- Easier sales
-
----
+Fields:
 
-## Deliverable
+- budget
+- patience
+- negotiationSkill
+- preferredType
 
-Reputation influences gameplay.
+Done When:
+- Customers generate daily
 
 ---
 
-# Phase 9 - Vehicle Condition and Repairs
+## 12. Create Customer Purchase Logic
 
-## Goal
+Checks:
 
-Create additional profit strategies.
+- vehicle type
+- vehicle price
+- reputation
 
----
-
-Vehicle Conditions
-
-```text
-Poor
-Fair
-Good
-Excellent
-```
+Done When:
+- Customers buy vehicles
 
 ---
 
-Repair Types
+## 13. Create Negotiation System
 
-### Clean Vehicle
+Actions:
 
-Small cost.
+- accept
+- counter
+- reject
 
----
-
-### Repair Vehicle
+Done When:
+- Offers can be negotiated
 
-Medium cost.
-
 ---
 
-### Restore Vehicle
+# V0.4 - Starting Experience
 
-High cost.
+## 14. Create Career Selection Screen
 
----
+Careers:
 
-## Deliverable
+1. Teen Flipper
+2. Used Car Lot
+3. Established Dealer
+4. Luxury Dealer
+5. Franchise Dealer
+6. Auto Group CEO
+7. Sandbox
 
-Vehicle value increases after work.
+Done When:
+- New game initializes correctly
 
 ---
 
-# Phase 10 - Employee System
+## 15. Create Location Selection
 
-## Goal
+Locations:
 
-Improve dealership efficiency.
+- Rural Town
+- Suburb
+- City
+- Wealthy Area
+- Rust Belt
 
----
-
-## Salesperson
-
-Benefits:
+Done When:
+- Location modifiers apply
 
-- More sales
-- Better negotiations
-
 ---
-
-## Mechanic
-
-Benefits:
 
-- Faster repairs
+## 16. Create State Selection
 
----
+States:
 
-## Detailer
+- Texas
+- California
+- Florida
+- Michigan
 
-Benefits:
+Done When:
+- Demand modifiers work
 
-- Better appearance
-- Higher selling prices
-
 ---
-
-## Finance Manager
 
-Benefits:
+# V0.5 - Reputation & Repairs
 
-- More financing income
+## 17. Create Reputation System
 
----
+Range:
 
-## Manager
+0-100
 
-Benefits:
+Increase:
 
-- Runs dealership operations
+- successful sales
+- good deals
 
----
+Decrease:
 
-Employee Stats
+- failed customers
+- bad pricing
 
-```text
-Skill
-Efficiency
-Experience
-Salary
-```
+Done When:
+- Reputation changes daily
 
 ---
-
-## Deliverable
-
-Staff affects business performance.
 
----
+## 18. Create Vehicle Conditions
 
-# Phase 11 - Dealership Upgrades
+States:
 
-## Goal
+- Poor
+- Fair
+- Good
+- Excellent
 
-Enable growth.
+Done When:
+- Every vehicle has condition
 
 ---
-
-## Gravel Lot
-
-Capacity:
 
-```text
-5 Vehicles
-```
+## 19. Create Repair System
 
----
-
-## Small Used Lot
+Actions:
 
-Capacity:
+- clean
+- repair
+- restore
 
-```text
-15 Vehicles
-```
+Done When:
+- Vehicle value increases
 
 ---
-
-## Established Dealer
-
-Capacity:
 
-```text
-50 Vehicles
-```
+# V0.6 - Employees
 
----
+## 20. Create Employee System
 
-## Mega Dealership
+Employee Types:
 
-Capacity:
+- salesperson
+- mechanic
+- detailer
 
-```text
-100+ Vehicles
-```
+Done When:
+- Employees can be hired
 
 ---
 
-## Deliverable
+## 21. Create Employee Effects
 
-Player upgrades property.
-
----
+Salesperson:
 
-# Phase 12 - Vehicle History System
+- increases sales chance
 
-## Goal
+Mechanic:
 
-Make vehicle purchases more strategic.
+- improves repairs
 
----
+Detailer:
 
-Vehicle Information
+- increases value
 
-```text
-Owners
-Accidents
-Flood Damage
-Service Records
-```
+Done When:
+- Stats affect gameplay
 
 ---
-
-## Deliverable
 
-Every car feels unique.
+# V0.7 - Dealership Growth
 
----
+## 22. Create Dealership Upgrades
 
-# Phase 13 - Auctions
+Levels:
 
-## Goal
+1. Driveway
+2. Gravel Lot
+3. Small Lot
+4. Dealership
+5. Mega Dealer
 
-Create inventory acquisition variety.
+Done When:
+- Capacity increases
 
 ---
-
-Auction Features
 
-- Timed bids
-- AI competitors
-- Rare cars
+## 23. Create Inventory Limits
 
 Examples:
 
-- Supra
-- Skyline
-- Corvette
-- Ford GT
+Driveway:
+
+- 3 cars
+
+Gravel Lot:
+
+- 10 cars
+
+Dealership:
+
+- 50 cars
+
+Done When:
+- Limits enforce inventory
 
 ---
 
-## Deliverable
+# V0.8 - Real Dealership Features
 
-Players compete for inventory.
+## 24. Create Vehicle History System
 
----
+Fields:
 
-# Phase 14 - Finance Department
+- owners
+- accidents
+- flood damage
+- maintenance score
 
-## Goal
-
-Add another profit source.
-
----
-
-Customer Options
-
-```text
-Cash
-Finance
-Lease
-```
+Done When:
+- Every vehicle has history
 
 ---
 
-Products
+## 25. Create Trade-In System
 
-- Warranties
-- GAP Coverage
-- Maintenance Plans
+Actions:
 
----
+- accept
+- reject
+- counter
 
-## Deliverable
-
-Finance department generates recurring income.
-
----
-
-# Phase 15 - Trade Ins
-
-## Goal
-
-Replicate real dealership operations.
+Done When:
+- Customers offer cars
 
 ---
 
-Customer Brings Vehicle
+## 26. Create Finance System
 
-Player Chooses:
+Products:
 
-- Accept
-- Reject
-- Counter
+- loans
+- warranty
+- gap coverage
 
----
-
-## Deliverable
-
-Used inventory enters business organically.
+Done When:
+- Finance profit exists
 
 ---
 
-# Phase 16 - Multiple Dealerships
+# V0.9 - Auctions
 
-## Goal
+## 27. Create Auction House
 
-Become a dealership owner.
+Actions:
 
----
+- bid
+- buy
 
-Purchase Additional Locations.
-
-Locations Have:
-
-```text
-Employees
-Inventory
-Traffic
-Revenue
-Profit
-```
+Done When:
+- Vehicles sell through auctions
 
 ---
 
-## Deliverable
+## 28. Create AI Bidders
 
-Player operates multiple businesses.
+Behavior:
 
----
+- aggressive
+- balanced
+- conservative
 
-# Phase 17 - Manager Automation
-
-## Goal
-
-Reduce micromanagement.
-
----
-
-Manager Skills
-
-```text
-Sales
-Leadership
-Efficiency
-```
+Done When:
+- Auctions feel competitive
 
 ---
 
-Managers run dealerships automatically.
+# V1.0 - Multiple Locations
+
+## 29. Create Dealership Entity
+
+Fields:
+
+- inventory
+- employees
+- profit
+- reputation
+
+Done When:
+- Multiple dealerships exist
 
 ---
 
-## Deliverable
+## 30. Create Acquisition System
 
-Semi-idle expansion gameplay.
+Actions:
 
----
+- buy dealership
 
-# Phase 18 - Franchise Dealership System
-
-## Goal
-
-Enter manufacturer partnerships.
+Done When:
+- New locations can be owned
 
 ---
 
-Manufacturers
+## 31. Create Dealership Management Screen
+
+Manage:
+
+- inventory
+- staff
+- upgrades
+
+Done When:
+- Player can control all locations
+
+---
+
+# V1.1 - Managers
+
+## 32. Create Manager Employees
+
+Stats:
+
+- leadership
+- efficiency
+- sales
+
+Done When:
+- Managers can be hired
+
+---
+
+## 33. Create Automation
+
+Managers automatically:
+
+- buy inventory
+- sell inventory
+- manage employees
+
+Done When:
+- Locations partially self-run
+
+---
+
+# V1.2 - Franchises
+
+## 34. Create Manufacturer System
+
+Manufacturers:
 
 - Ford
 - Chevrolet
@@ -930,255 +519,181 @@ Manufacturers
 - Honda
 - Nissan
 
----
-
-Requirement Example
-
-### Ford
-
-```text
-Reputation 75+
-Cash $500,000+
-250 Annual Sales
-```
+Done When:
+- Manufacturers exist
 
 ---
 
-Rewards
+## 35. Create Franchise Applications
 
-- Factory Inventory
-- Incentives
-- Exclusive Models
+Requirements:
 
----
+- cash
+- sales
+- reputation
 
-## Deliverable
-
-Major progression milestone.
-
----
-
-# Phase 19 - Manufacturer Reputation
-
-## Goal
-
-Build manufacturer trust.
+Done When:
+- Players apply for franchises
 
 ---
 
-Tracked Separately
+## 36. Create Manufacturer Reputation
 
-```text
-Ford Reputation
-Chevrolet Reputation
-Toyota Reputation
-```
+Track:
 
----
+- relationship score
 
-Benefits
-
-- Better bonuses
-- Better inventory
-- Better allocations
+Done When:
+- Relationships affect rewards
 
 ---
 
-## Deliverable
+## 37. Create Allocation System
 
-Long-term manufacturer relationships.
+Examples:
 
----
+- Mustang
+- Corvette
+- Supra
 
-# Phase 20 - Regional Expansion
-
-## Goal
-
-Expand geographically.
-
----
-
-Cities Have
-
-```text
-Population
-Income
-Competition
-Demand
-```
+Done When:
+- Rare inventory exists
 
 ---
 
-Examples
+# V1.3 - Regional Expansion
 
-```text
-Atlanta
-Miami
-Charlotte
-Nashville
-Savannah
-```
+## 38. Create City Map
 
----
+City Data:
 
-## Deliverable
+- population
+- wealth
+- competition
 
-Geographical growth.
+Done When:
+- Multiple cities exist
 
 ---
 
-# Phase 21 - Competitor Dealership Groups
+## 39. Create Regional Expansion
 
-## Goal
+Actions:
 
-Create market competition.
+- open dealership
+- buy dealership
 
----
-
-AI Companies
-
-```text
-Metro Auto Group
-Prestige Motors
-Prime Automotive
-```
+Done When:
+- Multi-city ownership works
 
 ---
 
-Competitors Can
+# V1.4 - Competition
 
-- Buy inventory
-- Expand locations
-- Run advertising
-- Acquire franchises
+## 40. Create AI Dealership Groups
 
----
+Examples:
 
-## Deliverable
+- Metro Auto Group
+- Prestige Motors
+- Prime Automotive
 
-Living business ecosystem.
-
----
-
-# Phase 22 - Dynamic Economy
-
-## Goal
-
-Make the market feel alive.
+Done When:
+- Competitors exist
 
 ---
 
-Economy Variables
+## 41. Create Competitor Behavior
 
-```text
-Fuel Prices
-Interest Rates
-Recessions
-Inventory Supply
-```
+Actions:
 
----
+- buy dealerships
+- advertise
+- acquire inventory
 
-Examples
-
-- Low gas prices improve truck sales.
-- High rates reduce financing demand.
+Done When:
+- Market competition exists
 
 ---
 
-## Deliverable
+# V1.5 - Economy
 
-Changing strategic environment.
+## 42. Create Economy Simulator
 
----
+Variables:
 
-# Phase 23 - Marketing System
+- fuel prices
+- interest rates
+- inflation
 
-## Goal
-
-Drive traffic.
-
----
-
-Campaigns
-
-### Social Media
-
-Cheap.
-
-### Radio
-
-Moderate.
-
-### Television
-
-Expensive.
-
-### Sponsorships
-
-Premium.
+Done When:
+- Demand fluctuates
 
 ---
 
-Benefits
+## 43. Create Random Events
 
-- Customer traffic
-- Reputation
-- Brand awareness
+Events:
 
----
+- recession
+- shortages
+- rebates
+- car shows
 
-## Deliverable
-
-Advertising affects growth.
-
----
-
-# Phase 24 - Auto Group Creation
-
-## Goal
-
-Create an empire.
+Done When:
+- Market changes dynamically
 
 ---
 
-Example
+# V1.6 - Marketing
 
-```text
-Smart Automotive Group
-```
+## 44. Create Marketing System
 
-Owns:
+Campaigns:
 
-```text
-5 Ford Stores
-3 Chevy Stores
-2 Luxury Dealers
-8 Used Lots
-```
+- social media
+- radio
+- TV
+- sponsorships
 
----
-
-Metrics
-
-```text
-Cars Sold
-Revenue
-Market Share
-Profit
-```
+Done When:
+- Advertising increases traffic
 
 ---
 
-## Deliverable
+# V1.7 - Auto Groups
 
-Player controls dealership network.
+## 45. Create Auto Group Entity
+
+Tracks:
+
+- dealerships
+- revenue
+- market share
+
+Done When:
+- Player owns dealership network
 
 ---
 
-# Phase 25 - Endgame Systems
+## 46. Create Rankings
 
-## Luxury Brands
+Metrics:
+
+- revenue
+- customer satisfaction
+- cars sold
+
+Done When:
+- Endgame goals exist
+
+---
+
+# V2.0 - Endgame
+
+## 47. Add Luxury Brands
+
+Brands:
 
 - BMW
 - Audi
@@ -1188,123 +703,25 @@ Player controls dealership network.
 
 ---
 
-## Regional Headquarters
+## 48. Add Regional HQ
 
 Manage:
 
-- Budgets
-- Advertising
-- Expansion
+- budgets
+- expansion
+- marketing
 
 ---
 
-## National Rankings
+## 49. Add Victory System
 
-Track:
+Win Conditions:
 
-- Revenue
-- Market Share
-- Vehicle Sales
+- largest dealer group
+- highest revenue
+- highest market share
 
----
-
-## Deliverable
-
-Full empire management.
+Done When:
+- Game has a clear ending
 
 ---
-
-# Future Multiplayer Expansion
-
-## Player Marketplace
-
-Sell cars to other players.
-
----
-
-## Live Auctions
-
-Compete globally.
-
----
-
-## Trading
-
-Player-to-player deals.
-
----
-
-## Global Economy
-
-Shared pricing and demand.
-
----
-
-# Version Release Plan
-
-## Version 0.1
-
-- Vehicles
-- Inventory
-- Buy/Sell
-- Cash
-- Saves
-
----
-
-## Version 0.5
-
-- Customers
-- Negotiation
-- Reputation
-- Repairs
-
----
-
-## Version 1.0
-
-- Employees
-- Upgrades
-- Locations
-- Career Starts
-- Vehicle Histories
-
----
-
-## Version 2.0
-
-- Auctions
-- Financing
-- Trade Ins
-- Multiple Lots
-
----
-
-## Version 3.0
-
-- Franchises
-- Manufacturers
-- Regional Expansion
-- Competitors
-
----
-
-## Version 4.0
-
-- Auto Groups
-- Dynamic Economy
-- Luxury Market
-
----
-
-## Version 5.0
-
-- Multiplayer
-- Trading
-- Global Rankings
-
----
-
-# Ultimate End Goal
-
-Start as a teenager flipping beat-up cars from a driveway and grow into the owner of the largest automotive group in the country, operating used car lots, service centers, luxury dealerships, manufacturer franchises, and a nationwide dealership empire.

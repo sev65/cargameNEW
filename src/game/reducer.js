@@ -1,4 +1,4 @@
-import { careers, customers, getById, locations, vehicles } from './content'
+import { careers, createCustomerPool, createMarket, getById, locations } from './content'
 import { createGame } from './state'
 
 const addActivity = (game, message) => ({
@@ -9,6 +9,11 @@ const addActivity = (game, message) => ({
 const error = (state, message) => ({ ...state, error: message })
 
 const clearError = (state) => ({ ...state, error: '' })
+
+const getCustomerMatch = (customerList, vehicle, inventoryLength) => {
+  const customer = customerList.find((item) => item.preference.toLowerCase().includes(vehicle.type))
+  return customer || customerList[inventoryLength % customerList.length]
+}
 
 export const reducer = (state, action) => {
   if (action.type === 'START_GAME') {
@@ -34,18 +39,29 @@ export const reducer = (state, action) => {
         day: nextDay,
         cash: game.cash - dailyExpense,
         expenses: game.expenses + dailyExpense,
+        market: createMarket({ keyPrefix: `day-${nextDay}` }),
+        customers: createCustomerPool(),
         selectedVehicleId: null,
         offer: null,
-      }, `Day ${nextDay} begins in ${location.name}. Daily overhead was $${dailyExpense.toLocaleString()}.`)
+      }, `Day ${nextDay} begins in ${location.name}. Market and customer traffic refreshed. Daily overhead was $${dailyExpense.toLocaleString()}.`)
       return { ...clearError(state), game: nextGame }
     }
+    case 'REFRESH_MARKET': {
+      const nextMarket = createMarket({ keyPrefix: `refresh-${game.day}-${Date.now()}` })
+      return { ...clearError(state), game: addActivity({ ...game, market: nextMarket, offer: null }, 'Refreshed the vehicle market.') }
+    }
+    case 'SKIP_MARKET': {
+      const [, ...remainingMarket] = game.market
+      if (!game.market.length) return error(state, 'There are no market listings to skip.')
+      return { ...clearError(state), game: addActivity({ ...game, market: remainingMarket, offer: null }, 'Passed on the first market listing.') }
+    }
     case 'BUY_VEHICLE': {
-      const vehicle = getById(vehicles, action.vehicleId)
+      const vehicle = getById(game.market, action.vehicleId)
       const location = getById(locations, game.setup.locationId)
       const career = getById(careers, game.setup.careerId)
+      if (game.inventory.some((item) => item.id === action.vehicleId)) return error(state, 'That vehicle is already in your inventory.')
       if (!vehicle || !location || !career) return error(state, 'That vehicle is not available.')
       if (game.inventory.length >= game.capacity) return error(state, 'Your lot is at capacity.')
-      if (game.inventory.some((item) => item.id === vehicle.id)) return error(state, 'That vehicle is already in your inventory.')
       const paidPrice = Math.round(vehicle.purchasePrice * (1 - (location.purchaseDiscount || 0)))
       if (game.cash < paidPrice) return error(state, 'You do not have enough cash for that vehicle.')
       const inventoryVehicle = { ...vehicle, paidPrice, inspected: false, listPrice: null }
@@ -54,6 +70,7 @@ export const reducer = (state, action) => {
         cash: game.cash - paidPrice,
         expenses: game.expenses + paidPrice,
         inventory: [...game.inventory, inventoryVehicle],
+        market: game.market.filter((item) => item.id !== vehicle.id),
         selectedVehicleId: vehicle.id,
         offer: null,
       }, `Bought a ${vehicle.year} ${vehicle.make} ${vehicle.model} for $${paidPrice.toLocaleString()}.`)
@@ -69,10 +86,24 @@ export const reducer = (state, action) => {
       if (listPrice > selectedVehicle.marketValue * 1.5) return error(state, 'That price is too far above market value.')
       return { ...clearError(state), game: { ...game, offer: null, inventory: game.inventory.map((vehicle) => vehicle.id === selectedVehicle.id ? { ...vehicle, listPrice } : vehicle) } }
     }
+    case 'SELL_VEHICLE': {
+      if (!selectedVehicle) return error(state, 'Select a vehicle to sell.')
+      if (!selectedVehicle.listPrice) return error(state, 'List the vehicle before selling it.')
+      const salePrice = selectedVehicle.listPrice
+      const nextGame = addActivity({
+        ...game,
+        cash: game.cash + salePrice,
+        revenue: game.revenue + salePrice,
+        inventory: game.inventory.filter((vehicle) => vehicle.id !== selectedVehicle.id),
+        selectedVehicleId: null,
+        offer: null,
+      }, `Sold the ${selectedVehicle.make} ${selectedVehicle.model} for $${salePrice.toLocaleString()}.`)
+      return { ...clearError(state), game: nextGame }
+    }
     case 'GENERATE_OFFER': {
       if (!selectedVehicle) return error(state, 'Select a vehicle before finding a customer.')
       if (!selectedVehicle.listPrice) return error(state, 'Set a sale price before finding a customer.')
-      const customer = customers.find((item) => item.preference.includes(selectedVehicle.type)) || customers[game.inventory.length % customers.length]
+      const customer = getCustomerMatch(game.customers, selectedVehicle, game.inventory.length)
       const amount = Math.min(selectedVehicle.listPrice, customer.budget)
       const initialOffer = Math.max(selectedVehicle.paidPrice + 250, Math.round(amount * 0.95))
       return { ...clearError(state), game: addActivity({ ...game, offer: { customer, amount: initialOffer, response: 'waiting' } }, `${customer.name} is interested in the ${selectedVehicle.make} ${selectedVehicle.model}.`) }
