@@ -1,0 +1,59 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+:root { font-family: 'Space Grotesk', sans-serif; color: #1f2926; background: #f4efe6; font-synthesis: none; line-height: 1.5; }
+* { box-sizing: border-box; }
+body { margin: 0; min-width: 320px; background: radial-gradient(circle at 90% 0%, #dbe8df 0, transparent 28rem), #f4efe6; }
+button, input, select { font: inherit; }
+button { cursor: pointer; }
+.app-shell { min-height: 100vh; }
+.setup-page { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(320px, .9fr); gap: 6rem; align-items: center; max-width: 1100px; min-height: 100vh; margin: auto; padding: 4rem 2rem; }
+.intro-block h1, .dashboard-header h1 { margin: .2rem 0 1rem; font-size: clamp(2.6rem, 6vw, 5.6rem); letter-spacing: -.06em; line-height: .95; font-weight: 600; }
+.lede { max-width: 32rem; margin: 0; font-size: 1.2rem; color: #627069; }
+.eyebrow { margin: 0 0 .6rem; color: #bc603c; font-family: 'DM Mono', monospace; font-size: .7rem; letter-spacing: .12em; text-transform: uppercase; }
+.setup-form, .panel, .activity-log { border: 1px solid #d6d7ca; background: rgba(255, 253, 247, .84); box-shadow: 0 20px 50px rgba(54, 60, 51, .07); }
+.setup-form { display: grid; gap: 1.25rem; padding: 2rem; border-top: 5px solid #bc603c; }
+label { display: grid; gap: .45rem; color: #66716b; font-size: .78rem; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; }
+select, input { width: 100%; border: 1px solid #c8cec6; border-radius: 2px; padding: .85rem .9rem; color: #1f2926; background: #fffdf7; outline: none; }
+select:focus, input:focus { border-color: #bc603c; box-shadow: 0 0 0 3px rgba(188, 96, 60, .15); }
+.button { border: 1px solid transparent; border-radius: 2px; padding: .75rem 1rem; color: #1f2926; font-weight: 600; transition: transform .15s ease, background .15s ease; }
+.button:hover { transform: translateY(-1px); }
+.button-primary { color: #fffdf7; background: #1f2926; }
+.button-secondary { border-color: #b8c2bb; background: transparent; }
+.button-accent { color: #fffdf7; background: #bc603c; }
+.button-quiet { padding: .35rem .6rem; color: #69766e; background: transparent; }
+.full-width { width: 100%; }
+.dashboard-header { display: grid; grid-template-columns: 1fr auto; gap: 1.25rem 2rem; padding: 3.5rem max(2rem, calc((100vw - 1200px) / 2)); background: #1f2926; color: #fffdf7; }
+.dashboard-header h1 { margin-bottom: 0; font-size: clamp(2.6rem, 6vw, 4.8rem); }
+.dashboard-header .eyebrow { color: #d58a6f; }
+.header-actions { display: flex; align-items: center; gap: 1rem; }
+.save-status { color: #aebcb2; font-family: 'DM Mono', monospace; font-size: .7rem; }
+.header-actions .button-quiet { color: #fffdf7; border: 1px solid #53625a; }
+.metrics { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid #44534b; padding-top: 1.5rem; }
+.metrics div { display: grid; gap: .3rem; padding-right: 1rem; border-right: 1px solid #44534b; }
+.metrics div + div { padding-left: 1.2rem; }
+.metrics div:last-child { border: 0; }
+.metrics span, .vehicle-facts span, .offer-amount span { color: #9fac9f; font-family: 'DM Mono', monospace; font-size: .68rem; text-transform: uppercase; }
+.metrics strong { font-size: 1.2rem; font-weight: 500; }
+.positive { color: #b9d3b5; } .negative { color: #edaa91; }
+.game-main { max-width: 1200px; margin: auto; padding: 2rem; }
+.content-grid { display: grid; grid-template-columns: 1.25fr 1fr 1fr; gap: 1.25rem; align-items: start; }
+.panel, .activity-log { padding: 1.4rem; }
+.section-heading { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; margin-bottom: 1.25rem; }
+h2, h3 { margin: 0; letter-spacing: -.03em; } h2 { font-size: 1.35rem; } h3 { font-size: 1rem; }
+.section-count, .condition-tag, .offer-status, .inspected, .uninspected { color: #718078; font-family: 'DM Mono', monospace; font-size: .65rem; text-transform: uppercase; }
+.vehicle-list { display: grid; gap: .85rem; }
+.vehicle-row { display: flex; justify-content: space-between; gap: 1rem; padding: 1rem 0; border-top: 1px solid #e0e0d6; }
+.vehicle-row p { margin: .2rem 0 0; color: #7d877f; font-size: .78rem; }
+.vehicle-year { color: #bc603c; font-family: 'DM Mono', monospace; font-size: .65rem; text-transform: uppercase; }
+.vehicle-action { display: grid; justify-items: end; gap: .45rem; white-space: nowrap; }
+.owned-list { margin-top: 2rem; }
+.owned-vehicle { display: flex; justify-content: space-between; width: 100%; border: 0; border-top: 1px solid #e0e0d6; padding: .9rem 0; color: #1f2926; text-align: left; background: transparent; }
+.owned-vehicle small { display: block; margin-top: .2rem; color: #7d877f; }.owned-vehicle.selected { color: #bc603c; }.arrow { font-size: 1.3rem; }
+.vehicle-facts { display: grid; grid-template-columns: repeat(3, 1fr); gap: .5rem; margin-bottom: 1.3rem; }.vehicle-facts div { display: grid; gap: .15rem; }.vehicle-facts strong { font-size: .9rem; }
+.history-box { display: grid; gap: 1rem; margin-bottom: 1.3rem; padding: 1rem; background: #edf1eb; }.history-box > div:first-child { display: flex; justify-content: space-between; }.history-box dl { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; margin: 0; }.history-box dl div { display: grid; gap: .15rem; }.history-box dt { color: #77837a; font-size: .7rem; }.history-box dd { margin: 0; font-size: .8rem; }
+.inspected { color: #4c7e58; }.uninspected { color: #a56545; }.price-form, .counter-form { display: grid; gap: .5rem; margin-bottom: 1rem; }.input-action { display: flex; gap: .5rem; }.input-action input { min-width: 0; }.empty-detail { min-height: 18rem; }.empty-detail p:last-child, .empty-state, .customer-note { color: #718078; font-size: .88rem; }
+.offer-amount { display: grid; gap: .2rem; margin: 1.5rem 0; padding: 1.2rem; border-left: 3px solid #bc603c; background: #f5e8de; }.offer-amount strong { font-size: 2rem; }.offer-actions { display: flex; gap: .5rem; margin-bottom: 1.3rem; }
+.activity-log { margin-top: 1.25rem; }.activity-log ol { display: grid; gap: .65rem; margin: 0; padding-left: 1.5rem; color: #69766e; font-size: .85rem; }.activity-log li::marker { color: #bc603c; font-family: 'DM Mono', monospace; }
+.error-banner { position: fixed; right: 1.5rem; bottom: 1.5rem; max-width: 26rem; padding: 1rem 1.2rem; border-left: 3px solid #bc603c; color: #6d2f20; background: #f7dace; box-shadow: 0 12px 30px rgba(80, 45, 35, .15); }
+@media (max-width: 950px) { .content-grid { grid-template-columns: 1fr 1fr; }.inventory-panel { grid-column: 1 / -1; }.setup-page { gap: 3rem; } }
+@media (max-width: 650px) { .setup-page { display: block; padding: 3rem 1.2rem; }.intro-block { margin-bottom: 2.5rem; }.setup-form { padding: 1.2rem; }.dashboard-header { display: block; padding: 2.5rem 1.2rem; }.header-actions { justify-content: space-between; margin-top: 1.5rem; }.metrics { margin-top: 2rem; grid-template-columns: 1fr 1fr; gap: 1rem; }.metrics div, .metrics div + div { border: 0; padding: 0; }.game-main { padding: 1.2rem; }.content-grid { display: block; }.panel { margin-bottom: 1.2rem; }.vehicle-row { align-items: flex-start; }.vehicle-action { text-align: right; }.error-banner { right: 1rem; bottom: 1rem; left: 1rem; max-width: none; } }
