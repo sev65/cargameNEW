@@ -31,7 +31,7 @@ export default function App() {
     <main className="game-main">
       <div className="content-grid">
         <InventoryPanel game={game} onBuy={(vehicleId) => dispatch({ type: 'BUY_VEHICLE', vehicleId })} onSelect={(vehicleId) => dispatch({ type: 'INSPECT_VEHICLE', vehicleId })} />
-        <VehicleDetails vehicle={selectedVehicle} onInspect={(vehicleId) => dispatch({ type: 'INSPECT_VEHICLE', vehicleId })} onPrice={(vehicleId, price) => { dispatch({ type: 'INSPECT_VEHICLE', vehicleId }); dispatch({ type: 'SET_PRICE', vehicleId, price }) }} onOffer={(vehicleId) => dispatch({ type: 'GENERATE_OFFER', vehicleId })} />
+        <VehicleDetails key={selectedVehicle?.id || 'empty'} vehicle={selectedVehicle} onInspect={(vehicleId) => dispatch({ type: 'INSPECT_VEHICLE', vehicleId })} onPrice={(vehicleId, price) => { dispatch({ type: 'INSPECT_VEHICLE', vehicleId }); dispatch({ type: 'SET_PRICE', vehicleId, price }) }} onOffer={(vehicleId) => dispatch({ type: 'GENERATE_OFFER', vehicleId })} />
         <CustomerOffer offer={game.offer} onAccept={() => dispatch({ type: 'ACCEPT_OFFER' })} onCounter={(amount) => dispatch({ type: 'COUNTER_OFFER', amount })} onReject={() => dispatch({ type: 'REJECT_OFFER' })} />
       </div>
       <aside className="activity-log"><div className="section-heading"><div><p className="eyebrow">The ledger</p><h2>Recent activity</h2></div></div><ol>{game.activity.map((entry, index) => <li key={`${entry}-${index}`}>{entry}</li>)}</ol></aside>
