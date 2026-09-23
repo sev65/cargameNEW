@@ -48,4 +48,11 @@ describe('dealership game rules', () => {
     expect(state.game.offer.amount).toBe(21000)
     expect(state.game.offer.response).toBe('accepted')
   })
+
+  it('advances the day and records daily overhead', () => {
+    const state = reducer(started(), { type: 'NEXT_DAY' })
+    expect(state.game.day).toBe(2)
+    expect(state.game.cash).toBe(49200)
+    expect(state.game.activity[0]).toMatch(/Day 2/)
+  })
 })

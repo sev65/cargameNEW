@@ -15,13 +15,13 @@ export const states = [
 ]
 
 export const careers = [
-  { id: 'flipper', name: 'Teen Flipper', description: 'Start from a driveway and prove the model.', startingCash: 5000, capacity: 2 },
-  { id: 'small-lot', name: 'Small Used Car Lot', description: 'A modest lot with room to grow.', startingCash: 50000, capacity: 10 },
-  { id: 'established', name: 'Established Used Dealer', description: 'A healthy operation with buying power.', startingCash: 250000, capacity: 15 },
-  { id: 'luxury', name: 'Luxury Dealer Owner', description: 'Premium inventory and premium risk.', startingCash: 150000, capacity: 6 },
-  { id: 'franchise', name: 'Franchise Dealer', description: 'A first step toward manufacturer backing.', startingCash: 300000, capacity: 20 },
-  { id: 'group-ceo', name: 'Auto Group CEO', description: 'Start with a small network of stores.', startingCash: 1000000, capacity: 30 },
-  { id: 'sandbox', name: 'Sandbox Mode', description: 'Experiment freely with a deep reserve.', startingCash: 100000000, capacity: 50 },
+  { id: 'flipper', name: 'Teen Flipper', description: 'Start from a driveway and prove the model.', startingCash: 5000, capacity: 2, dailyExpense: 150 },
+  { id: 'small-lot', name: 'Small Used Car Lot', description: 'A modest lot with room to grow.', startingCash: 50000, capacity: 10, dailyExpense: 800 },
+  { id: 'established', name: 'Established Used Dealer', description: 'A healthy operation with buying power.', startingCash: 250000, capacity: 15, dailyExpense: 2200 },
+  { id: 'luxury', name: 'Luxury Dealer Owner', description: 'Premium inventory and premium risk.', startingCash: 150000, capacity: 6, dailyExpense: 2800 },
+  { id: 'franchise', name: 'Franchise Dealer', description: 'A first step toward manufacturer backing.', startingCash: 300000, capacity: 20, dailyExpense: 3600 },
+  { id: 'group-ceo', name: 'Auto Group CEO', description: 'Start with a small network of stores.', startingCash: 1000000, capacity: 30, dailyExpense: 7000 },
+  { id: 'sandbox', name: 'Sandbox Mode', description: 'Experiment freely with a deep reserve.', startingCash: 100000000, capacity: 50, dailyExpense: 15000 },
 ]
 
 export const vehicles = [

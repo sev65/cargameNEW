@@ -3,7 +3,7 @@ import { getProfit } from '../game/state'
 
 const money = (value) => `$${value.toLocaleString()}`
 
-export default function Dashboard({ game, onReset }) {
+export default function Dashboard({ game, onReset, onNextDay }) {
   const location = getById(locations, game.setup.locationId)
   const state = getById(states, game.setup.stateId)
   const career = getById(careers, game.setup.careerId)
@@ -15,8 +15,9 @@ export default function Dashboard({ game, onReset }) {
         <h1>Lotline Motors</h1>
       </div>
       <div className="header-actions">
-        <span className="save-status">Saved locally</span>
-        <button className="button button-quiet" type="button" onClick={onReset}>New game</button>
+        <span className="save-status">Day {game.day}</span>
+        <button className="button button-secondary" type="button" onClick={() => onReset()}>New game</button>
+        <button className="button button-primary" type="button" onClick={() => onNextDay()}>Next day</button>
       </div>
       <div className="metrics" aria-label="Business summary">
         <div><span>Cash</span><strong>{money(game.cash)}</strong></div>

@@ -16,6 +16,7 @@ export const createGame = ({ locationId, stateId, careerId }) => {
 
   return {
     setup: { locationId, stateId, careerId },
+    day: 1,
     cash: career.startingCash + location.cashBonus,
     revenue: 0,
     expenses: 0,

@@ -23,6 +23,22 @@ export const reducer = (state, action) => {
   const selectedVehicle = game.inventory.find((vehicle) => vehicle.id === (action.vehicleId || game.selectedVehicleId))
 
   switch (action.type) {
+    case 'NEXT_DAY': {
+      const career = getById(careers, game.setup.careerId)
+      const location = getById(locations, game.setup.locationId)
+      if (!career || !location) return error(state, 'Your dealership setup is incomplete.')
+      const dailyExpense = career.dailyExpense || 0
+      const nextDay = game.day + 1
+      const nextGame = addActivity({
+        ...game,
+        day: nextDay,
+        cash: game.cash - dailyExpense,
+        expenses: game.expenses + dailyExpense,
+        selectedVehicleId: null,
+        offer: null,
+      }, `Day ${nextDay} begins in ${location.name}. Daily overhead was $${dailyExpense.toLocaleString()}.`)
+      return { ...clearError(state), game: nextGame }
+    }
     case 'BUY_VEHICLE': {
       const vehicle = getById(vehicles, action.vehicleId)
       const location = getById(locations, game.setup.locationId)

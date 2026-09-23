@@ -27,7 +27,7 @@ export default function App() {
   if (!game) return <><NewGameSetup onStart={(setup) => dispatch({ type: 'START_GAME', setup })} /><ErrorBanner message={state.error} /></>
 
   return <div className="app-shell">
-    <Dashboard game={game} onReset={resetGame} />
+    <Dashboard game={game} onReset={resetGame} onNextDay={() => dispatch({ type: 'NEXT_DAY' })} />
     <main className="game-main">
       <div className="content-grid">
         <InventoryPanel game={game} onBuy={(vehicleId) => dispatch({ type: 'BUY_VEHICLE', vehicleId })} onSelect={(vehicleId) => dispatch({ type: 'INSPECT_VEHICLE', vehicleId })} />
